@@ -1,0 +1,46 @@
+
+<div id="title-container">
+  <a href="/">
+    <img src="img/logo.svg" alt="logo" />
+    <div id="title">gather</div>
+  </a>
+</div>
+<div class="create-container">
+  <div class="create-card">
+    <div class="create-column">
+      <img id="created-image" src="" />
+    </div>
+    <div class="divider">
+    </div>
+    <div class="create-column">
+      <h2 class="form-title">Create</h2>
+
+
+      <form action="/items/create" method="post" >
+        <input name='title' id='title-input'>
+        {{#with newItem.errors.title as |error|}}
+          <span class="error">{{error.message}}</span>
+        {{/with}}
+        <textarea name='description' id='description-input'>{{newItem.description}}</textarea>
+        {{#with newItem.errors.description as |error|}}
+          <span class="error">{{error.message}}</span>
+        {{/with}}
+        <input value="{{newItem.imageUrl}}" name='imageUrl' id='imageUrl-input'>
+        {{#with newItem.errors.imageUrl as |error|}}
+          <span class="error">{{error.message}}</span>
+        {{/with}}
+
+        <input id='submit-button' type='submit'>
+      </form>
+
+    </div>
+  </div>
+</div>
+<script>
+  var img = document.getElementById('created-image');
+  function handleChange(e) {
+    var path = e.target.value.match(/^(https*:\/\/)/i) ? '' : 'http://';
+    img.src = path + e.target.value;
+  }
+  document.getElementById('imageUrl-input').oninput = handleChange;
+</script>
